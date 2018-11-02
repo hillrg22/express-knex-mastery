@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const knex = require('../db/connection.js')
 
-router.get('/', (req,res) => {
+router.get('/', (req,res,next) => {
   knex('student')
   .then(students => {
     res.json({students: students})
@@ -10,7 +10,7 @@ router.get('/', (req,res) => {
 })
 
 
-router.get('/:id', (req,res) =>{
+router.get('/:id', (req,res,next) =>{
 const id = req.params.id
   knex('student')
   .where('id',id)
@@ -19,7 +19,7 @@ const id = req.params.id
   })
 })
 
-router.post('/', (req,res) =>{
+router.post('/', (req,res,next) =>{
   // const body = req.body
   knex('student')
     .insert(req.body)
@@ -29,7 +29,7 @@ router.post('/', (req,res) =>{
       res.json({student: student})
     })
 })
-router.put('/:id', (req,res) => {
+router.put('/:id', (req,res,next) => {
   const id = req.params.id
   const body = req.body
 
@@ -42,7 +42,7 @@ router.put('/:id', (req,res) => {
     })
 })
 
-router.delete('/:id', (req,res) => {
+router.delete('/:id', (req,res,next) => {
   const id = req.params.id
   knex('student')
   .where('id', id)

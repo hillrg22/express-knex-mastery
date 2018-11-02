@@ -3,14 +3,15 @@ const router = express.Router()
 const knex = require('../db/connection.js')
 
 
-router.get('/', (req,res) => {
+router.get('/', (req,res,next,next) => {
   knex('beer')
   .then(beers => {
     res.json({beers: beers})
   })
+
 })
 
-router.get('/:id', (req,res) =>{
+router.get('/:id', (req,res,next) =>{
 const id = req.params.id
   knex('beer')
   .where('id',id)
@@ -19,7 +20,7 @@ const id = req.params.id
   })
 })
 
-router.post('/', (req,res) =>{
+router.post('/', (req,res,next) =>{
   // const body = req.body
   knex('beer')
     .insert(req.body)
@@ -30,7 +31,7 @@ router.post('/', (req,res) =>{
     })
 })
 
-router.put('/:id', (req,res) => {
+router.put('/:id', (req,res,next) => {
   const id = req.params.id
   const body = req.body
 
@@ -43,7 +44,7 @@ router.put('/:id', (req,res) => {
     })
 })
 
-router.delete('/:id', (req,res) => {
+router.delete('/:id', (req,res,next) => {
   const id = req.params.id
   knex('beer')
   .where('id', id)
