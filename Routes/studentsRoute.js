@@ -1,6 +1,5 @@
 const express = require('express')
 const router = express.Router()
-const students = require('../students.js')
 const knex = require('../db/connection.js')
 
 router.get('/', (req,res) => {
@@ -11,7 +10,25 @@ router.get('/', (req,res) => {
 })
 
 
+router.get('/:id', (req,res) =>{
+const id = req.params.id
+  knex('student')
+  .where('id',id)
+  .then((student) =>{
+    res.json({student: student[0]})
+  })
+})
 
+router.post('/', (req,res) =>{
+  // const body = req.body
+  knex('student')
+    .insert(req.body)
+    .returning('*')
+    .then((student) =>{
+      console.log(student)
+      res.json({student: student})
+    })
+})
 
 
 

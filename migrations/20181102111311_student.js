@@ -2,7 +2,7 @@ exports.up = function(knex, Promise) {
   //code to run to set up our tables
     //create schema
   return knex.schema.createTable('student', function (table) {
-    table.increments('id')
+    table.increments().primary()
     table.string('name')
     table.string('cohort')
   })
