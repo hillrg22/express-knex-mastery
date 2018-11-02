@@ -29,8 +29,29 @@ router.post('/', (req,res) =>{
       res.json({student: student})
     })
 })
+router.put('/:id', (req,res) => {
+  const id = req.params.id
+  const body = req.body
 
+  knex('student')
+    .where('id', id)
+    .update(body)
+    .returning('*')
+    .then(updatedStudent =>{
+      res.json({beer: updatedStudent[0]})
+    })
+})
 
+router.delete('/:id', (req,res) => {
+  const id = req.params.id
+  knex('student')
+  .where('id', id)
+  .del()
+  .returning('*')
+  .then(deletedStudent => {
+    res.json({student:deletedStudent[0]})
+  })
+})
 
 
 

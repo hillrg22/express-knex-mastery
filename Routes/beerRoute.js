@@ -43,7 +43,16 @@ router.put('/:id', (req,res) => {
     })
 })
 
-
+router.delete('/:id', (req,res) => {
+  const id = req.params.id
+  knex('beer')
+  .where('id', id)
+  .del()
+  .returning('*')
+  .then(deletedBeer => {
+    res.json({student:deletedBeer[0]})
+  })
+})
 
 
 
