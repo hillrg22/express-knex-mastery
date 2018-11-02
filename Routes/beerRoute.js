@@ -30,6 +30,18 @@ router.post('/', (req,res) =>{
     })
 })
 
+router.put('/:id', (req,res) => {
+  const id = req.params.id
+  const body = req.body
+
+  knex('beer')
+    .where('id', id)
+    .update(body)
+    .returning('*')
+    .then(updatedBeer =>{
+      res.json({beer: updatedBeer[0]})
+    })
+})
 
 
 
