@@ -3,6 +3,7 @@ const app = express()
 const port = process.env.PORT || 3100
 const cors = require('cors')
 const bodyParser = require('body-parser')
+const knex = require('./db/connection.js')
 
 app.use(cors())
 app.use(bodyParser.urlencoded({ extended: false }))
