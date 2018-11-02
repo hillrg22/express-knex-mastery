@@ -15,7 +15,12 @@ const id = req.params.id
   knex('student')
   .where('id',id)
   .then((student) =>{
+    if(!student.length){
+      next()
+    }
+    else{
     res.json({student: student[0]})
+    }
   })
 })
 
