@@ -3,7 +3,7 @@ const router = express.Router()
 const knex = require('../db/connection.js')
 
 
-router.get('/', (req,res,next,next) => {
+router.get('/', (req,res,next) => {
   knex('beer')
   .then(beers => {
     res.json({beers: beers})
