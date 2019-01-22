@@ -1,3 +1,6 @@
+const knex = require('../db/connection.js')
+
+
 getAllBeers = () => {
   return knex('beer')
 }
