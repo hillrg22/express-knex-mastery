@@ -43,7 +43,7 @@ router.put('/:id', (req,res,next) => {
     .update(body)
     .returning('*')
     .then(updatedStudent =>{
-      res.json({beer: updatedStudent[0]})
+      res.json({student: updatedStudent[0]})
     })
 })
 

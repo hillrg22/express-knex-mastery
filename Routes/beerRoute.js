@@ -2,9 +2,16 @@ const express = require('express')
 const router = express.Router()
 const knex = require('../db/connection.js')
 
+const { getAllBeers,
+        getOneBeer,
+        postOneBeer,
+        updateBeer,
+
+      } = require('../handlers/beerQueries')
+
 
 router.get('/', (req,res,next) => {
-  knex('beer')
+  getAllBeers()
   .then(beers => {
     res.json({beers: beers})
   })
@@ -12,9 +19,8 @@ router.get('/', (req,res,next) => {
 })
 
 router.get('/:id', (req,res,next) =>{
-const id = req.params.id
-  knex('beer')
-  .where('id',id)
+  const id = req.params.id
+  getOneBeer(id)
   .then((beer) =>{
     if(!beer.length){
       next()
@@ -26,10 +32,8 @@ const id = req.params.id
 })
 
 router.post('/', (req,res,next) =>{
-  // const body = req.body
-  knex('beer')
-    .insert(req.body)
-    .returning('*')
+  const body = req.body
+    postOneBeer(body)
     .then((beer) =>{
       console.log(beer)
       res.json({beer: beer})
@@ -39,11 +43,7 @@ router.post('/', (req,res,next) =>{
 router.put('/:id', (req,res,next) => {
   const id = req.params.id
   const body = req.body
-
-  knex('beer')
-    .where('id', id)
-    .update(body)
-    .returning('*')
+    updateBeer(id, body)
     .then(updatedBeer =>{
       res.json({beer: updatedBeer[0]})
     })
@@ -51,10 +51,7 @@ router.put('/:id', (req,res,next) => {
 
 router.delete('/:id', (req,res,next) => {
   const id = req.params.id
-  knex('beer')
-  .where('id', id)
-  .del()
-  .returning('*')
+  deleteBeer(id)
   .then(deletedBeer => {
     res.json({student:deletedBeer[0]})
   })
