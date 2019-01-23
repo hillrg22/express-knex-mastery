@@ -6,6 +6,7 @@ const { getAllBeers,
         getOneBeer,
         postOneBeer,
         updateBeer,
+        deleteBeer
 
       } = require('../handlers/beerQueries')
 

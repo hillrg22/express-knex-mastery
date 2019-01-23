@@ -17,14 +17,14 @@ postOneBeer = (body) => {
 }
 
 updateBeer = (id, body) => {
-  knex('beer')
+  return knex('beer')
     .where('id', id)
     .update(body)
     .returning('*')
 }
 
 deleteBeer = (id) =>{
-  knex('beer')
+  return knex('beer')
   .where('id', id)
   .del()
   .returning('*')
